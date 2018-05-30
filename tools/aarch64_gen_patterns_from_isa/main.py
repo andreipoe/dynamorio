@@ -85,7 +85,7 @@ def find_files(root, only):
     paths = []
     for dirpath, _, files in os.walk(root):
         for name in files:
-            if not name.endswith(".xml") or (only and only not in name):
+            if not name.endswith(".xml") or (only and not name.startswith(only.lower())):
                 continue
             paths.append(os.path.join(dirpath, name))
     return paths
