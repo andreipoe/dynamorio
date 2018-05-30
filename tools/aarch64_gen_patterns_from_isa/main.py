@@ -102,6 +102,8 @@ DATATYPE_TO_REG = {
     'advsimd+single-and-double': 'dq',
     'advsimd+half': 'dq',
     'advsimd+complex': 'dq',
+    'advsimd+simd': 'dq',
+    'advsimd+product': 'dq',
     'float+half': 'float_reg',
     'float+single': 'float_reg',
     'float+double': 'float_reg',
@@ -121,7 +123,7 @@ def operand_to_reg_class(box, class_info):
     if name == 'size':
         # New FP SIMD instructions added in 8.3 have 1 encoding group for
         # half, single and double, with size being 2 bit wide.
-        if class_info['datatype'] in ('half', 'single-and-double', 'complex'):
+        if class_info['datatype'] in ('half', 'single-and-double', 'complex', 'simd', 'product'):
             return 'fsz2'
         assert False
 

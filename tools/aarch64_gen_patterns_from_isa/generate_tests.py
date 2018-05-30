@@ -37,7 +37,7 @@ TYPE_TO_STR2 = {
 }
 
 
-def generate_reg_strs(op, num_strs):
+def generate_reg_strs(op, num_strs, mnemonic):
     """
     Generates a set of test strings for op. For immediate that take special
     values, like fsz, we generate a list with possible values.
@@ -51,7 +51,10 @@ def generate_reg_strs(op, num_strs):
     if op == 'fsz16':
         return [], ['$0x01', '$0x01']
     if op == 'fsz2':
-        return [], ['$0x02', '$0x03', '$0x02', '$0x01', '$0x01']
+        if num_strs == 4:
+            return [], ['$0x02', '$0x02', '$0x01', '$0x01']
+        else:
+            return [], ['$0x02', '$0x03', '$0x02', '$0x01', '$0x01']
     if op == 'rot12':
         assert num_strs == 5
         return (['90', '270', '90', '270', '90'],
@@ -71,6 +74,9 @@ def generate_reg_strs(op, num_strs):
         elif num_strs == 2:
             temp_asm = ['v{}.8h', 'v{}.4h']
             temp_ir = ['%q{}', '%d{}']
+        elif num_strs == 4:
+            temp_asm = ['v{}.4s', 'v{}.2s', 'v{}.8h', 'v{}.4h']
+            temp_ir = ['%q{}', '%d{}', '%q{}', '%d{}']
         elif num_strs == 5:
             temp_asm = ['v{}.4s', 'v{}.2d', 'v{}.2s', 'v{}.8h', 'v{}.4h']
             temp_ir = ['%q{}', '%q{}', '%d{}', '%q{}', '%d{}']
@@ -171,7 +177,11 @@ def num_combinations_to_test(enc):
             return 2
         # FP SIMD half, single and float encoding
         elif 'fsz2' in enc.inputs:
-            return 5
+            # MUL doesn't support .2D size
+            if enc.mnemonic.lower() == 'mul':
+                return 4
+            else:
+                return 5
         else:
             assert False
 
@@ -190,14 +200,14 @@ def generate_test_strings(enc):
     num_strs = num_combinations_to_test(enc)
 
     for op in enc.outputs:
-        asm, ir = generate_reg_strs(op, num_strs)
+        asm, ir = generate_reg_strs(op, num_strs, enc.mnemonic)
         asm_ops.append(asm)
         output_ir.append(ir)
         if enc.reads_dst():
             input_ir.append(ir)
 
     for op in enc.inputs:
-        asm, ir = generate_reg_strs(op, num_strs)
+        asm, ir = generate_reg_strs(op, num_strs, enc.mnemonic)
         if op == 'dq0':
             continue
         if asm:

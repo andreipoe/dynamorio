@@ -38,6 +38,7 @@ ARG_TO_REG = {
     'float_reg16': ('Rn', 'The second input register.'),
     'float_reg10': ('Ra', 'The third input register.'),
     'fsz': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
+    'fsz2': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
     'fsz16': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
 }
 
@@ -58,6 +59,10 @@ def get_doc_comments(enc):
 
     if enc.reads_dst():
         params[0] = params[0] + ' The instruction also reads this register.'
+
+    # Some instructions, e.g. MUL, do not support DOUBLE size
+    if enc.mnemonic.lower() == 'mul':
+        params[-1] = params[-1][:params[-1].index(',')] + ' or OPND_CREATE_SINGLE().'
 
     comment = """
 /**
