@@ -2029,3 +2029,23 @@ fd7fffff : ldr    d31, [sp,#32760]        : ldr    +0x7ff8(%sp)[8byte] -> %d31
 1e7e3a96 : fsub d22, d20, d30 : fsub   %d20 %d30 -> %d22
 1e3e3a96 : fsub s22, s20, s30 : fsub   %s20 %s30 -> %s22
 1efe3a96 : fsub h22, h20, h30 : fsub   %h20 %h30 -> %h22
+
+# ADD (vector)
+4ebe8762 : add v2.4s, v27.4s, v30.4s : add    %q27 %q30 $0x02 -> %q2
+4efe8762 : add v2.2d, v27.2d, v30.2d : add    %q27 %q30 $0x03 -> %q2
+0ebe8762 : add v2.2s, v27.2s, v30.2s : add    %d27 %d30 $0x02 -> %d2
+4e7e8762 : add v2.8h, v27.8h, v30.8h : add    %q27 %q30 $0x01 -> %q2
+0e7e8762 : add v2.4h, v27.4h, v30.4h : add    %d27 %d30 $0x01 -> %d2
+
+# SUB (vector)
+6ebe8762 : sub v2.4s, v27.4s, v30.4s : sub    %q27 %q30 $0x02 -> %q2
+6efe8762 : sub v2.2d, v27.2d, v30.2d : sub    %q27 %q30 $0x03 -> %q2
+2ebe8762 : sub v2.2s, v27.2s, v30.2s : sub    %d27 %d30 $0x02 -> %d2
+6e7e8762 : sub v2.8h, v27.8h, v30.8h : sub    %q27 %q30 $0x01 -> %q2
+2e7e8762 : sub v2.4h, v27.4h, v30.4h : sub    %d27 %d30 $0x01 -> %d2
+
+# MUL (vector)
+4ebe9f62 : mul v2.4s, v27.4s, v30.4s : mul    %q27 %q30 $0x02 -> %q2
+0ebe9f62 : mul v2.2s, v27.2s, v30.2s : mul    %d27 %d30 $0x02 -> %d2
+4e7e9f62 : mul v2.8h, v27.8h, v30.8h : mul    %q27 %q30 $0x01 -> %q2
+0e7e9f62 : mul v2.4h, v27.4h, v30.4h : mul    %d27 %d30 $0x01 -> %d2

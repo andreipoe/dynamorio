@@ -244,5 +244,19 @@ fsub   %d4 %d25 $0x02 -> %d1
 fsub   %d20 %d30 -> %d22
 fsub   %s20 %s30 -> %s22
 fsub   %h20 %h30 -> %h22
+add    %q27 %q30 $0x02 -> %q2
+add    %q27 %q30 $0x03 -> %q2
+add    %d27 %d30 $0x02 -> %d2
+add    %q27 %q30 $0x01 -> %q2
+add    %d27 %d30 $0x01 -> %d2
+sub    %q27 %q30 $0x02 -> %q2
+sub    %q27 %q30 $0x03 -> %q2
+sub    %d27 %d30 $0x02 -> %d2
+sub    %q27 %q30 $0x01 -> %q2
+sub    %d27 %d30 $0x01 -> %d2
+mul    %q27 %q30 $0x02 -> %q2
+mul    %d27 %d30 $0x02 -> %d2
+mul    %q27 %q30 $0x01 -> %q2
+mul    %d27 %d30 $0x01 -> %d2
 test_neon_fp_arithmetic complete
 All tests complete

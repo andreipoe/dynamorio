@@ -1149,6 +1149,42 @@
 #define INSTR_CREATE_fsub_scalar(dc, Rd, Rm, Rn) \
     instr_create_1dst_2src(dc, OP_fsub, Rd, Rm, Rn)
 
+/**
+ * Creates a add vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_HALF(),
+ *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().
+ */
+#define INSTR_CREATE_add_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_add, Rd, Rm, Rn, width)
+
+/**
+ * Creates a sub vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_HALF(),
+ *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().
+ */
+#define INSTR_CREATE_sub_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_sub, Rd, Rm, Rn, width)
+
+/**
+ * Creates a mul vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_HALF() or OPND_CREATE_SINGLE().
+ */
+#define INSTR_CREATE_mul_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_mul, Rd, Rm, Rn, width)
+
+
 /* DR_API EXPORT END */
 
 #endif /* INSTR_CREATE_H */
