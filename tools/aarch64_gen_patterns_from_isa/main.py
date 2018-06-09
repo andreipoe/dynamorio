@@ -123,8 +123,10 @@ def operand_to_reg_class(box, class_info):
     if name == 'size':
         # New FP SIMD instructions added in 8.3 have 1 encoding group for
         # half, single and double, with size being 2 bit wide.
-        if class_info['datatype'] in ('half', 'single-and-double', 'complex', 'simd', 'product'):
+        if class_info['datatype'] in ('half', 'single-and-double', 'complex'):
             return 'fsz2'
+        elif class_info['datatype'] in  ('simd', 'product'):
+            return 'isz'
         assert False
 
     bit_start = int(box.attrib['hibit']) - int(box.attrib.get('width', 1)) + 1

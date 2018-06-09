@@ -51,10 +51,12 @@ def generate_reg_strs(op, num_strs, mnemonic):
     if op == 'fsz16':
         return [], ['$0x01', '$0x01']
     if op == 'fsz2':
-        if num_strs == 4:
-            return [], ['$0x02', '$0x02', '$0x01', '$0x01']
+        return [], ['$0x02', '$0x03', '$0x02', '$0x01', '$0x01']
+    if op == 'isz':
+        if num_strs == 6:
+            return [], ['$0x02', '$0x02', '$0x01', '$0x01', '$0x00', '$0x00']
         else:
-            return [], ['$0x02', '$0x03', '$0x02', '$0x01', '$0x01']
+            return [], ['$0x02', '$0x03', '$0x02', '$0x01', '$0x01', '$0x00', '$0x00']
     if op == 'rot12':
         assert num_strs == 5
         return (['90', '270', '90', '270', '90'],
@@ -74,12 +76,15 @@ def generate_reg_strs(op, num_strs, mnemonic):
         elif num_strs == 2:
             temp_asm = ['v{}.8h', 'v{}.4h']
             temp_ir = ['%q{}', '%d{}']
-        elif num_strs == 4:
-            temp_asm = ['v{}.4s', 'v{}.2s', 'v{}.8h', 'v{}.4h']
-            temp_ir = ['%q{}', '%d{}', '%q{}', '%d{}']
         elif num_strs == 5:
             temp_asm = ['v{}.4s', 'v{}.2d', 'v{}.2s', 'v{}.8h', 'v{}.4h']
             temp_ir = ['%q{}', '%q{}', '%d{}', '%q{}', '%d{}']
+        elif num_strs == 6:
+            temp_asm = ['v{}.4s', 'v{}.2s', 'v{}.8h', 'v{}.4h', 'v{}.16b', 'v{}.8b']
+            temp_ir = ['%q{}', '%d{}', '%q{}', '%d{}', '%q{}', '%d{}']
+        elif num_strs == 7:
+            temp_asm = ['v{}.4s', 'v{}.2d', 'v{}.2s', 'v{}.8h', 'v{}.4h', 'v{}.16b', 'v{}.8b']
+            temp_ir = ['%q{}', '%q{}', '%d{}', '%q{}', '%d{}', '%q{}', '%d{}']
         else:
             assert False
     elif op.startswith('float_reg'):
@@ -94,6 +99,7 @@ def generate_reg_strs(op, num_strs, mnemonic):
 
 
 SIZE_TO_MACRO = {
+    '$0x00': 'OPND_CREATE_BYTE()',
     '$0x01': 'OPND_CREATE_HALF()',
     '$0x02': 'OPND_CREATE_SINGLE()',
     '$0x03': 'OPND_CREATE_DOUBLE()',
@@ -177,11 +183,14 @@ def num_combinations_to_test(enc):
             return 2
         # FP SIMD half, single and float encoding
         elif 'fsz2' in enc.inputs:
+            return 5
+        # Integer SIMD
+        elif 'isz' in enc.inputs:
             # MUL doesn't support .2D size
             if enc.mnemonic.lower() == 'mul':
-                return 4
+                return 6
             else:
-                return 5
+                return 7
         else:
             assert False
 

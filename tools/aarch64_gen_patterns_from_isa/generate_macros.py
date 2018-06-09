@@ -40,6 +40,7 @@ ARG_TO_REG = {
     'fsz': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
     'fsz2': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
     'fsz16': ('width', 'The vector element width. Use either OPND_CREATE_HALF(), \n *                OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
+    'isz': ('width', 'The vector element width. Use either OPND_CREATE_BYTE(), \n *                OPND_CREATE_HALF(), OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().'),
 }
 
 TYPE_TO_STR2 = {
@@ -62,7 +63,7 @@ def get_doc_comments(enc):
 
     # Some instructions, e.g. MUL, do not support DOUBLE size
     if enc.mnemonic.lower() == 'mul':
-        params[-1] = params[-1][:params[-1].index(',')] + ' or OPND_CREATE_SINGLE().'
+        params[-1] = params[-1][:params[-1].rindex(',')] + ' or OPND_CREATE_SINGLE().'
 
     comment = """
 /**
