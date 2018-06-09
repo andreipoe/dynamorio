@@ -52,6 +52,27 @@ fmov   %x8 -> %h23
 fmov   %x24 -> %d6
 fmov   %x10 -> %q9
 test_fmov_general complete
+add    %q27 %q30 $0x02 -> %q2
+add    %q27 %q30 $0x03 -> %q2
+add    %d27 %d30 $0x02 -> %d2
+add    %q27 %q30 $0x01 -> %q2
+add    %d27 %d30 $0x01 -> %d2
+add    %q27 %q30 $0x00 -> %q2
+add    %d27 %d30 $0x00 -> %d2
+sub    %q27 %q30 $0x02 -> %q2
+sub    %q27 %q30 $0x03 -> %q2
+sub    %d27 %d30 $0x02 -> %d2
+sub    %q27 %q30 $0x01 -> %q2
+sub    %d27 %d30 $0x01 -> %d2
+sub    %q27 %q30 $0x00 -> %q2
+sub    %d27 %d30 $0x00 -> %d2
+mul    %q27 %q30 $0x02 -> %q2
+mul    %d27 %d30 $0x02 -> %d2
+mul    %q27 %q30 $0x01 -> %q2
+mul    %d27 %d30 $0x01 -> %d2
+mul    %q27 %q30 $0x00 -> %q2
+mul    %d27 %d30 $0x00 -> %d2
+test_neon_arithmetic complete
 fabd   %q27 %q30 $0x01 -> %q2
 fabd   %d27 %d30 $0x01 -> %d2
 fabd   %q13 %q29 $0x02 -> %q0

@@ -1571,6 +1571,23 @@ fd7fffff : ldr    d31, [sp,#32760]        : ldr    +0x7ff8(%sp)[8byte] -> %d31
 0ebd8633 : add v19.2s, v17.2s, v29.2s    : add    %d17 %d29 $0x02 -> %d19
 4ee9852d : add v13.2d, v9.2d, v9.2d      : add    %q9 %q9 $0x03 -> %q13
 
+# SUB (vector)
+6ebe8762 : sub v2.4s, v27.4s, v30.4s    : sub    %q27 %q30 $0x02 -> %q2
+6efe8762 : sub v2.2d, v27.2d, v30.2d    : sub    %q27 %q30 $0x03 -> %q2
+2ebe8762 : sub v2.2s, v27.2s, v30.2s    : sub    %d27 %d30 $0x02 -> %d2
+6e7e8762 : sub v2.8h, v27.8h, v30.8h    : sub    %q27 %q30 $0x01 -> %q2
+2e7e8762 : sub v2.4h, v27.4h, v30.4h    : sub    %d27 %d30 $0x01 -> %d2
+6e3e8762 : sub v2.16b, v27.16b, v30.16b : sub    %q27 %q30 $0x00 -> %q2
+2e3e8762 : sub v2.8b, v27.8b, v30.8b    : sub    %d27 %d30 $0x00 -> %d2
+
+# MUL (vector)
+4ebe9f62 : mul v2.4s, v27.4s, v30.4s    : mul    %q27 %q30 $0x02 -> %q2
+0ebe9f62 : mul v2.2s, v27.2s, v30.2s    : mul    %d27 %d30 $0x02 -> %d2
+4e7e9f62 : mul v2.8h, v27.8h, v30.8h    : mul    %q27 %q30 $0x01 -> %q2
+0e7e9f62 : mul v2.4h, v27.4h, v30.4h    : mul    %d27 %d30 $0x01 -> %d2
+4e3e9f62 : mul v2.16b, v27.16b, v30.16b : mul    %q27 %q30 $0x00 -> %q2
+0e3e9f62 : mul v2.8b, v27.8b, v30.8b    : mul    %d27 %d30 $0x00 -> %d2
+
 # FMOV (general) GPR to FP reg
 1ee70220 : fmov  h0, w17 : fmov   %w17 -> %h0
 1e27012a : fmov  s10, w9 : fmov   %w9 -> %s10

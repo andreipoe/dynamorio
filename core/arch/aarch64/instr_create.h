@@ -48,6 +48,12 @@
 #define ISZ_BYTE 0
 
 /**
+ * Operand indicating 8-bit vector elements for the
+ * other operands of the containing instruction.
+ */
+#define OPND_CREATE_BYTE() OPND_CREATE_INT8(ISZ_BYTE)
+
+/**
  * Used in an additional immediate source operand to a vector operation, denotes
  * 16 bit vector element width. See \ref sec_IR_AArch64.
  */
@@ -627,6 +633,42 @@
  */
 #define INSTR_CREATE_fmov_general(dc, Rd, Rn) \
     instr_create_1dst_1src(dc, OP_fmov, Rd, Rn)
+
+/**
+ * Creates a add vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_BYTE(),
+ *                OPND_CREATE_HALF(), OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().
+ */
+#define INSTR_CREATE_add_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_add, Rd, Rm, Rn, width)
+
+/**
+ * Creates a sub vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_BYTE(),
+ *                OPND_CREATE_HALF(), OPND_CREATE_SINGLE() or OPND_CREATE_DOUBLE().
+ */
+#define INSTR_CREATE_sub_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_sub, Rd, Rm, Rn, width)
+
+/**
+ * Creates a mul vector instruction.
+ * \param dc The void * dcontext used to allocate memory for the instr_t.
+ * \param Rd      The output register.
+ * \param Rm      The first input register.
+ * \param Rn      The second input register.
+ * \param width   The vector element width. Use either OPND_CREATE_BYTE(),
+ *                OPND_CREATE_HALF() or OPND_CREATE_SINGLE().
+ */
+#define INSTR_CREATE_mul_vector(dc, Rd, Rm, Rn, width) \
+    instr_create_1dst_3src(dc, OP_mul, Rd, Rm, Rn, width)
 
 /**
  * Creates a FABD vector instruction.

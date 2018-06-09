@@ -332,6 +332,153 @@ test_fmov_general(void *dc)
 }
 
 static void
+test_neon_arithmetic(void *dc)
+{
+    byte *pc;
+    instr_t *instr;
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_DOUBLE());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_add_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_add, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_DOUBLE());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_sub_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_sub, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_mul, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_SINGLE());
+    test_instr_encoding(dc, OP_mul, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_mul, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_HALF());
+    test_instr_encoding(dc, OP_mul, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_Q2),
+                                    opnd_create_reg(DR_REG_Q27),
+                                    opnd_create_reg(DR_REG_Q30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_mul, instr);
+
+    instr = INSTR_CREATE_mul_vector(dc,
+                                    opnd_create_reg(DR_REG_D2),
+                                    opnd_create_reg(DR_REG_D27),
+                                    opnd_create_reg(DR_REG_D30),
+                                    OPND_CREATE_BYTE());
+    test_instr_encoding(dc, OP_mul, instr);
+}
+
+static void
 test_neon_fp_arithmetic(void *dc)
 {
     byte *pc;
@@ -1613,6 +1760,9 @@ main(int argc, char *argv[])
 
     test_fmov_general(dcontext);
     print("test_fmov_general complete\n");
+
+    test_neon_arithmetic(dcontext);
+    print("test_neon_arithmetic complete\n");
 
     test_neon_fp_arithmetic(dcontext);
     print("test_neon_fp_arithmetic complete\n");
